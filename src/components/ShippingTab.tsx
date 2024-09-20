@@ -1,10 +1,14 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, View, Text} from 'react-native';
 import {CheckBox} from 'react-native-btr';
 import {BoxIcon, ExpandIcon, RightIcon} from '../assets/svgs';
 
-const ShippingTab = () => {
+const ShippingTab = ({allChecked}: {allChecked: boolean}) => {
   const [checked, setChecked] = useState(false);
+
+  useEffect(() => {
+    setChecked(allChecked);
+  }, [allChecked]);
   return (
     <View style={styles.container}>
       <View style={{width: 15, height: 15}}>

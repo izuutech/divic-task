@@ -1,21 +1,48 @@
 import React from 'react';
-import {Image, StyleSheet, View} from 'react-native';
+import {Image, StyleSheet, View, TouchableOpacity} from 'react-native';
 import {BellIcon, BlueIcon} from '../assets/svgs';
+import useToast from '../hooks/useToast';
+import {useAppStore} from '../store/appStore';
 
 const AppHeader = () => {
+  const toast = useToast();
+  const {setAll} = useAppStore(state => state);
   return (
     <View style={styles.container}>
-      <View style={styles.imgbox}>
+      <TouchableOpacity
+        style={styles.imgbox}
+        onPress={() => {
+          setAll({loggedIn: false});
+          toast.show('my_success', {
+            type: 'my_success',
+            data: {
+              title: 'Log out successful:',
+              message:
+                'Your intentions are clear! Unfortunately, we cannot open your profile without a signed agreement.',
+            },
+          });
+        }}>
         <Image
           source={{uri: 'https://picsum.photos/200/300'}}
           width={40}
           height={40}
         />
-      </View>
+      </TouchableOpacity>
       <BlueIcon />
-      <View style={styles.bellbox}>
+      <TouchableOpacity
+        style={styles.bellbox}
+        onPress={() =>
+          toast.show('my_success', {
+            type: 'my_success',
+            data: {
+              title: 'Message:',
+              message:
+                'Your intentions are clear! Unfortunately, the notifications does not liked to be pressed.',
+            },
+          })
+        }>
         <BellIcon />
-      </View>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -26,6 +53,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     alignItems: 'center',
     justifyContent: 'space-between',
+    marginBottom: 10,
     width: '100%',
   },
   imgbox: {

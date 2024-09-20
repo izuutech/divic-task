@@ -8,9 +8,11 @@ import ShippingTab from '../components/ShippingTab';
 import FilterSheet from '../modals/FilterSheet';
 import {CheckBox} from 'react-native-btr';
 import {BottomSheetModal} from '@gorhom/bottom-sheet';
+import useToast from '../hooks/useToast';
 
 const ShippingList = () => {
-  const [checked, setChecked] = useState(false);
+  const [allChecked, setAllChecked] = useState(false);
+  const toast = useToast();
   const filterSheetRef = useRef<BottomSheetModal>(null);
   const closeBottomSheet = () => {
     filterSheetRef?.current?.dismiss();
@@ -36,22 +38,35 @@ const ShippingList = () => {
           textColor={'white'}
           title="Add Scan"
           containerStyle={styles.btn}
+          onPress={() =>
+            toast.show('my_success', {
+              type: 'my_success',
+              data: {
+                title: 'Message:',
+                message:
+                  'The FBI would like to know why you want to scan an item so bad😠.',
+              },
+            })
+          }
         />
       </View>
       <View style={styles.row}>
         <Text style={styles.h2}>Shipments</Text>
         <View style={styles.markbox}>
           <CheckBox
-            checked={checked}
+            checked={allChecked}
             borderWidth={1}
             borderRadius={2}
             color={'#2F50C1'}
-            onPress={() => setChecked(prev => !prev)}
+            onPress={() => setAllChecked(prev => !prev)}
           />
           <Text style={styles.body}>Mark All</Text>
         </View>
       </View>
-      <FlatList data={[1, 2, 3]} renderItem={() => <ShippingTab />} />
+      <FlatList
+        data={[1, 2, 3, 4, 5, 6, 7, 8, 9]}
+        renderItem={() => <ShippingTab allChecked={allChecked} />}
+      />
       <FilterSheet
         closeBottomSheet={closeBottomSheet}
         bottomSheetModalRef={filterSheetRef}
@@ -63,6 +78,7 @@ const ShippingList = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingTop: 60,
     paddingHorizontal: '5%',
     backgroundColor: 'white',
   },

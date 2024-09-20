@@ -8,6 +8,7 @@ import {ChevronIcon} from '../assets/svgs';
 import {useNavigation} from '@react-navigation/native';
 import {renderBottomSheetBackdrop} from './Backdrop';
 import {useAppStore} from '../store/appStore';
+import useToast from '../hooks/useToast';
 
 interface BlockBottomSheetProps {
   bottomSheetModalRef: React.RefObject<BottomSheetModalMethods>;
@@ -21,8 +22,12 @@ const LoginSheet = ({
   const {setAll} = useAppStore(state => state);
   const [form, setForm] = useState({username: '', password: ''});
   const navigation = useNavigation<any>();
+  const toast = useToast();
   const blockSnapPoints = useMemo(() => ['20%', '50%', '60%', '85%'], []);
 
+  const loginEnabled = useMemo(() => {
+    return form.username && form.password;
+  }, [form]);
   return (
     <BottomSheetModal
       ref={bottomSheetModalRef}
@@ -65,11 +70,18 @@ const LoginSheet = ({
           title="Login"
           backgroundColor="#2F50C1"
           textColor={'white'}
+          disabled={!loginEnabled}
           containerStyle={styles.btn}
           onPress={() => {
+            toast.show('my_success', {
+              type: 'my_success',
+              data: {
+                title: 'Message:',
+                message: 'Welcome my geeeee',
+              },
+            });
             closeBottomSheet();
             setAll({loggedIn: true});
-            // navigation.navigate('ShippingList');
           }}
         />
       </View>
