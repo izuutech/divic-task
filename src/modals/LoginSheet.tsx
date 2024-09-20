@@ -7,6 +7,7 @@ import AppButton from '../components/AppButton';
 import {ChevronIcon} from '../assets/svgs';
 import {useNavigation} from '@react-navigation/native';
 import {renderBottomSheetBackdrop} from './Backdrop';
+import {useAppStore} from '../store/appStore';
 
 interface BlockBottomSheetProps {
   bottomSheetModalRef: React.RefObject<BottomSheetModalMethods>;
@@ -17,6 +18,7 @@ const LoginSheet = ({
   bottomSheetModalRef,
   closeBottomSheet,
 }: BlockBottomSheetProps) => {
+  const {setAll} = useAppStore(state => state);
   const [form, setForm] = useState({username: '', password: ''});
   const navigation = useNavigation<any>();
   const blockSnapPoints = useMemo(() => ['20%', '50%', '60%', '85%'], []);
@@ -66,7 +68,8 @@ const LoginSheet = ({
           containerStyle={styles.btn}
           onPress={() => {
             closeBottomSheet();
-            navigation.navigate('ShippingList');
+            setAll({loggedIn: true});
+            // navigation.navigate('ShippingList');
           }}
         />
       </View>

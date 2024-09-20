@@ -4,11 +4,14 @@ import SplashScreen from '../components/SplashScreen';
 import {useState, useEffect} from 'react';
 import Onboarding from '../screens/Onboarding';
 import ShippingList from '../screens/ShippingList';
+import DashboardTab from './DashboardTab';
+import {useAppStore} from '../store/appStore';
 
 const Stack = createNativeStackNavigator();
 
 export default function Navigation() {
   const [isLoading, setIsLoading] = useState(true);
+  const {loggedIn} = useAppStore(state => state);
   useEffect(() => {
     // Simulate loading process
     setTimeout(() => {
@@ -22,8 +25,11 @@ export default function Navigation() {
         <SplashScreen />
       ) : (
         <Stack.Navigator screenOptions={{headerShown: false}}>
-          <Stack.Screen name="Onboarding" component={Onboarding} />
-          <Stack.Screen name="ShippingList" component={ShippingList} />
+          {loggedIn ? (
+            <Stack.Screen name="DashboardTab" component={DashboardTab} />
+          ) : (
+            <Stack.Screen name="Onboarding" component={Onboarding} />
+          )}
         </Stack.Navigator>
       )}
     </NavigationContainer>

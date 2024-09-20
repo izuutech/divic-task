@@ -8,6 +8,10 @@ import FilterIcon from './filter.svg';
 import RightIcon from './Right.svg';
 import BoxIcon from './box.svg';
 import ExpandIcon from './expand.svg';
+import ProfileIcon from './profile.svg';
+import BoxesIcon from './boxes-icon.svg';
+import ScanBottomIcon from './scan-bottom.svg';
+import WalletIcon from './wallet.svg';
 
 export {
   LogoNameIcon,
@@ -20,4 +24,8 @@ export {
   RightIcon,
   BoxIcon,
   ExpandIcon,
+  ProfileIcon,
+  BoxesIcon,
+  ScanBottomIcon,
+  WalletIcon,
 };
