@@ -16,7 +16,7 @@ export default function Navigation() {
     // Simulate loading process
     setTimeout(() => {
       setIsLoading(false);
-    }, 2000); // Adjust the time as needed
+    }, 1800); // Adjust the time as needed
   }, []);
 
   return (

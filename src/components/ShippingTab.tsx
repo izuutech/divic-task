@@ -22,7 +22,7 @@ const ShippingTab = ({allChecked}: {allChecked: boolean}) => {
       </View>
       <BoxIcon />
       <View style={styles.detailsbox}>
-        <Text>AWB</Text>
+        <Text style={styles.code}>AWB</Text>
         <Text style={styles.id}>41785691423</Text>
         <View style={styles.destinationbox}>
           <Text style={styles.location}>41785691423</Text>
@@ -55,9 +55,13 @@ const styles = StyleSheet.create({
   detailsbox: {
     width: '40%',
   },
+  code: {
+    color: 'black',
+  },
   id: {
     fontWeight: '700',
     marginVertical: 5,
+    color: 'black',
   },
   destinationbox: {
     flexDirection: 'row',
@@ -66,6 +70,7 @@ const styles = StyleSheet.create({
   },
   location: {
     fontSize: 8,
+    color: 'black',
   },
   statusbox: {
     paddingHorizontal: 5,
@@ -75,7 +80,7 @@ const styles = StyleSheet.create({
   },
   status: {
     color: '#2F50C1',
-    fontSize: 10,
+    fontSize: 9,
   },
   expandCircle: {
     width: 20,

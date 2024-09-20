@@ -23,7 +23,7 @@ const AppHeader = () => {
           });
         }}>
         <Image
-          source={{uri: 'https://picsum.photos/200/300'}}
+          source={require('../assets/pngs/man.png')}
           width={40}
           height={40}
         />

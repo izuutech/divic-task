@@ -1,5 +1,13 @@
 import React, {useEffect, useMemo, useState} from 'react';
-import {Alert, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {
+  Alert,
+  Keyboard,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
 import {BottomSheetModalMethods} from '@gorhom/bottom-sheet/lib/typescript/types';
 import {BottomSheetModal, useBottomSheetModal} from '@gorhom/bottom-sheet';
 import AppInput from '../components/AppInput';
@@ -44,47 +52,49 @@ const LoginSheet = ({
           closeBottomSheet();
         }
       }}>
-      <View style={styles.container}>
-        <TouchableOpacity onPress={closeBottomSheet} style={styles.cancelbox}>
-          <ChevronIcon />
-          <Text style={styles.cancel}>Cancel</Text>
-        </TouchableOpacity>
-        <Text style={styles.header}>Login</Text>
-        <Text style={styles.subtitle}>
-          Please enter your First, Last name and your phone number in order to
-          register
-        </Text>
-        <View style={styles.space} />
-        <AppInput
-          title="Username/Email"
-          value={form.username}
-          onChangeText={text => setForm(prev => ({...prev, username: text}))}
-        />
-        <AppInput
-          title="Password"
-          isPassword
-          value={form.password}
-          onChangeText={text => setForm(prev => ({...prev, password: text}))}
-        />
-        <AppButton
-          title="Login"
-          backgroundColor="#2F50C1"
-          textColor={'white'}
-          disabled={!loginEnabled}
-          containerStyle={styles.btn}
-          onPress={() => {
-            toast.show('my_success', {
-              type: 'my_success',
-              data: {
-                title: 'Message:',
-                message: 'Welcome my geeeee',
-              },
-            });
-            closeBottomSheet();
-            setAll({loggedIn: true});
-          }}
-        />
-      </View>
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <View style={styles.container}>
+          <TouchableOpacity onPress={closeBottomSheet} style={styles.cancelbox}>
+            <ChevronIcon />
+            <Text style={styles.cancel}>Cancel</Text>
+          </TouchableOpacity>
+          <Text style={styles.header}>Login</Text>
+          <Text style={styles.subtitle}>
+            Please enter your First, Last name and your phone number in order to
+            register
+          </Text>
+          <View style={styles.space} />
+          <AppInput
+            title="Username/Email"
+            value={form.username}
+            onChangeText={text => setForm(prev => ({...prev, username: text}))}
+          />
+          <AppInput
+            title="Password"
+            isPassword
+            value={form.password}
+            onChangeText={text => setForm(prev => ({...prev, password: text}))}
+          />
+          <AppButton
+            title="Login"
+            backgroundColor="#2F50C1"
+            textColor={'white'}
+            disabled={!loginEnabled}
+            containerStyle={styles.btn}
+            onPress={() => {
+              toast.show('my_success', {
+                type: 'my_success',
+                data: {
+                  title: 'Message:',
+                  message: 'Welcome my geeeee',
+                },
+              });
+              closeBottomSheet();
+              setAll({loggedIn: true});
+            }}
+          />
+        </View>
+      </TouchableWithoutFeedback>
     </BottomSheetModal>
   );
 };
@@ -131,10 +141,8 @@ const styles = StyleSheet.create({
     height: 30,
   },
   btn: {
-    position: 'absolute',
-    bottom: 100,
+    marginTop: 180,
     width: '100%',
-    marginLeft: '5%',
   },
 });
 

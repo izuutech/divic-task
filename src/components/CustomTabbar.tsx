@@ -141,6 +141,7 @@ const styles = StyleSheet.create({
   tabText: {
     fontSize: 10,
     marginTop: 5,
+    color: 'black',
   },
   icon: {
     width: 20,
