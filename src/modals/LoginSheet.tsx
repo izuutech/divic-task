@@ -5,6 +5,7 @@ import {BottomSheetModal, useBottomSheetModal} from '@gorhom/bottom-sheet';
 import AppInput from '../components/AppInput';
 import AppButton from '../components/AppButton';
 import {ChevronIcon} from '../assets/svgs';
+import {useNavigation} from '@react-navigation/native';
 
 interface BlockBottomSheetProps {
   bottomSheetModalRef: React.RefObject<BottomSheetModalMethods>;
@@ -16,7 +17,7 @@ const LoginSheet = ({
   closeBottomSheet,
 }: BlockBottomSheetProps) => {
   const [form, setForm] = useState({username: '', password: ''});
-
+  const navigation = useNavigation<any>();
   const blockSnapPoints = useMemo(() => ['20%', '50%', '60%', '85%'], []);
 
   return (
@@ -62,6 +63,10 @@ const LoginSheet = ({
           backgroundColor="#2F50C1"
           textColor={'white'}
           containerStyle={styles.btn}
+          onPress={() => {
+            closeBottomSheet();
+            navigation.navigate('ShippingList');
+          }}
         />
       </View>
     </BottomSheetModal>

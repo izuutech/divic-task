@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {ReactNode} from 'react';
 import {
   ColorValue,
   GestureResponderEvent,
@@ -17,6 +17,7 @@ const AppButton = ({
   textColor,
   containerStyle,
   disabled,
+  leftIcon,
 }: {
   title: string;
   disabled?: boolean;
@@ -24,6 +25,7 @@ const AppButton = ({
   backgroundColor?: ColorValue | undefined;
   textColor?: ColorValue | undefined;
   containerStyle?: StyleProp<ViewStyle>;
+  leftIcon?: ReactNode;
 }) => {
   return (
     <TouchableOpacity
@@ -33,6 +35,7 @@ const AppButton = ({
         {backgroundColor: disabled ? '#EAE7F2' : backgroundColor || 'white'},
         containerStyle,
       ]}>
+      {leftIcon}
       <Text
         style={[
           styles.text,
@@ -52,11 +55,13 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
+    flexDirection: 'row',
   },
   text: {
     textAlign: 'center',
     fontWeight: '700',
     fontSize: 16,
+    marginLeft: 5,
   },
 });
 

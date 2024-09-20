@@ -3,6 +3,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import SplashScreen from '../components/SplashScreen';
 import {useState, useEffect} from 'react';
 import Onboarding from '../screens/Onboarding';
+import ShippingList from '../screens/ShippingList';
 
 const Stack = createNativeStackNavigator();
 
@@ -22,7 +23,7 @@ export default function Navigation() {
       ) : (
         <Stack.Navigator screenOptions={{headerShown: false}}>
           <Stack.Screen name="Onboarding" component={Onboarding} />
-          {/* <Stack.Screen name="Login" component={Login} />  */}
+          <Stack.Screen name="ShippingList" component={ShippingList} />
         </Stack.Navigator>
       )}
     </NavigationContainer>
