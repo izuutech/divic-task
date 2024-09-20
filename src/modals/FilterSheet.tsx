@@ -6,6 +6,7 @@ import AppInput from '../components/AppInput';
 import AppButton from '../components/AppButton';
 import {ChevronIcon} from '../assets/svgs';
 import {useNavigation} from '@react-navigation/native';
+import FilterTab from '../components/FilterTab';
 import {renderBottomSheetBackdrop} from './Backdrop';
 
 interface BlockBottomSheetProps {
@@ -13,13 +14,13 @@ interface BlockBottomSheetProps {
   closeBottomSheet: () => void;
 }
 
-const LoginSheet = ({
+const FilterSheet = ({
   bottomSheetModalRef,
   closeBottomSheet,
 }: BlockBottomSheetProps) => {
   const [form, setForm] = useState({username: '', password: ''});
   const navigation = useNavigation<any>();
-  const blockSnapPoints = useMemo(() => ['20%', '50%', '60%', '85%'], []);
+  const blockSnapPoints = useMemo(() => ['10%', '20%', '30%', '45%'], []);
 
   return (
     <BottomSheetModal
@@ -38,37 +39,28 @@ const LoginSheet = ({
         }
       }}>
       <View style={styles.container}>
-        <TouchableOpacity onPress={closeBottomSheet} style={styles.cancelbox}>
-          <ChevronIcon />
-          <Text style={styles.cancel}>Cancel</Text>
-        </TouchableOpacity>
-        <Text style={styles.header}>Login</Text>
-        <Text style={styles.subtitle}>
-          Please enter your First, Last name and your phone number in order to
-          register
-        </Text>
-        <View style={styles.space} />
-        <AppInput
-          title="Username/Email"
-          value={form.username}
-          onChangeText={text => setForm(prev => ({...prev, username: text}))}
-        />
-        <AppInput
-          title="Password"
-          isPassword
-          value={form.password}
-          onChangeText={text => setForm(prev => ({...prev, password: text}))}
-        />
-        <AppButton
-          title="Login"
-          backgroundColor="#2F50C1"
-          textColor={'white'}
-          containerStyle={styles.btn}
-          onPress={() => {
-            closeBottomSheet();
-            navigation.navigate('ShippingList');
-          }}
-        />
+        <View style={styles.headerBox}>
+          <TouchableOpacity onPress={closeBottomSheet} style={styles.cancelbox}>
+            <Text style={styles.cancel}>Cancel</Text>
+          </TouchableOpacity>
+          <Text style={styles.header}>Filters</Text>
+          <TouchableOpacity onPress={closeBottomSheet} style={styles.cancelbox}>
+            <Text style={styles.cancel}>Done</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.hP}>
+          <Text style={styles.subtitle}>SHIPMENT STATUS</Text>
+          <View style={styles.space} />
+          <View style={styles.filters}>
+            <FilterTab title="Received" />
+            <FilterTab title="Putaway" />
+            <FilterTab title="Delivered" />
+            <FilterTab title="Canceled" />
+            <FilterTab title="Rejected" />
+            <FilterTab title="Lost" />
+            <FilterTab title="On Hold" />
+          </View>
+        </View>
       </View>
     </BottomSheetModal>
   );
@@ -85,9 +77,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginVertical: '2.5%',
-    paddingHorizontal: '5%',
     width: '100%',
     alignSelf: 'center',
+  },
+  headerBox: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+    paddingVertical: 10,
+    paddingHorizontal: '5%',
+    marginBottom: 20,
+    borderBottomWidth: 1,
+    borderBottomColor: '#EAE7F2',
   },
   cancelbox: {
     flexDirection: 'row',
@@ -103,8 +104,7 @@ const styles = StyleSheet.create({
   header: {
     color: 'black',
     fontFamily: 'titleFont',
-    fontSize: 33,
-    paddingVertical: 10,
+    fontSize: 18,
     fontWeight: '600',
   },
   subtitle: {
@@ -112,15 +112,17 @@ const styles = StyleSheet.create({
     fontFamily: 'titleFont',
     fontSize: 15,
   },
+  hP: {
+    paddingHorizontal: '5%',
+  },
   space: {
     height: 30,
   },
-  btn: {
-    position: 'absolute',
-    bottom: 100,
+  filters: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
     width: '100%',
-    marginLeft: '5%',
   },
 });
 
-export default LoginSheet;
+export default FilterSheet;

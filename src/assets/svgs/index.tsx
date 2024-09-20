@@ -5,6 +5,9 @@ import BellIcon from './Bell.svg';
 import SearchIcon from './search.svg';
 import ScanIcon from './scan.svg';
 import FilterIcon from './filter.svg';
+import RightIcon from './Right.svg';
+import BoxIcon from './box.svg';
+import ExpandIcon from './expand.svg';
 
 export {
   LogoNameIcon,
@@ -14,4 +17,7 @@ export {
   SearchIcon,
   ScanIcon,
   FilterIcon,
+  RightIcon,
+  BoxIcon,
+  ExpandIcon,
 };

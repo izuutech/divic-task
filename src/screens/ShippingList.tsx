@@ -1,11 +1,20 @@
-import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import React, {useRef, useState} from 'react';
+import {FlatList, StyleSheet, Text, View} from 'react-native';
 import AppHeader from '../components/AppHeader';
 import AppSearchInput from '../components/AppSearchInput';
 import AppButton from '../components/AppButton';
 import {FilterIcon, ScanIcon} from '../assets/svgs';
+import ShippingTab from '../components/ShippingTab';
+import FilterSheet from '../modals/FilterSheet';
+import {CheckBox} from 'react-native-btr';
+import {BottomSheetModal} from '@gorhom/bottom-sheet';
 
 const ShippingList = () => {
+  const [checked, setChecked] = useState(false);
+  const filterSheetRef = useRef<BottomSheetModal>(null);
+  const closeBottomSheet = () => {
+    filterSheetRef?.current?.dismiss();
+  };
   return (
     <View style={styles.container}>
       <AppHeader />
@@ -19,6 +28,7 @@ const ShippingList = () => {
           textColor={'#58536E'}
           title="Filters"
           containerStyle={styles.btn}
+          onPress={() => filterSheetRef.current?.present()}
         />
         <AppButton
           leftIcon={<ScanIcon />}
@@ -30,8 +40,22 @@ const ShippingList = () => {
       </View>
       <View style={styles.row}>
         <Text style={styles.h2}>Shipments</Text>
-        <Text style={styles.body}>Mark All</Text>
+        <View style={styles.markbox}>
+          <CheckBox
+            checked={checked}
+            borderWidth={1}
+            borderRadius={2}
+            color={'#2F50C1'}
+            onPress={() => setChecked(prev => !prev)}
+          />
+          <Text style={styles.body}>Mark All</Text>
+        </View>
       </View>
+      <FlatList data={[1, 2, 3]} renderItem={() => <ShippingTab />} />
+      <FilterSheet
+        closeBottomSheet={closeBottomSheet}
+        bottomSheetModalRef={filterSheetRef}
+      />
     </View>
   );
 };
@@ -56,6 +80,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginVertical: 15,
   },
+  markbox: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   btn: {
     width: '48%',
   },
@@ -65,6 +93,7 @@ const styles = StyleSheet.create({
   },
   body: {
     color: '#2F50C1',
+    marginLeft: 5,
   },
 });
 
